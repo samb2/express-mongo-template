@@ -1,0 +1,27 @@
+version: "3"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/home/node/api
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - myapi:/data/db
+
+  redis-server:
+    image: 'redis'
+    volumes:
+      - myapi:/home/node/api
+volumes:
+  myapi:

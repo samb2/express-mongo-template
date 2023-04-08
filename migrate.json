@@ -1,0 +1,7 @@
+{
+  "uri": "mongodb://localhost:27017/iRole-Express-mongodb-dev",
+  "collection": "migrations",
+  "migrationsPath": "./src/database/migrations",
+  "templatePath": "./src/database/migrations/template.ts",
+  "autosync": false
+}

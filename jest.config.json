@@ -1,0 +1,35 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "testEnvironmentOptions": {
+    "NODE_ENV": "test"
+  },
+  "transform": {
+    "^.+\\.(ts)$": "ts-jest"
+  },
+  "coverageDirectory": "coverage",
+  "collectCoverageFrom": [
+    "src/**/*.ts",
+    "!src/**/*.d.ts",
+    "!src/**/types.ts"
+  ],
+  "coverageReporters": [
+    "lcov",
+    "text-summary"
+  ],
+  "reporters": [
+    "default"
+  ],
+  "testTimeout": 500000,
+  "setupFilesAfterEnv": [
+    "<rootDir>/src/test/setup.ts"
+  ],
+  "bail": true,
+  "verbose": true,
+  "forceExit": true,
+  "clearMocks": true,
+  "resetMocks": true,
+  "restoreMocks": true,
+  "displayName": "iRole Express Template MongoDB",
+  "errorOnDeprecated": false
+}

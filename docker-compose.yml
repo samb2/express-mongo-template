@@ -1,0 +1,25 @@
+version: "3"
+services:
+  api:
+    build: .
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - myapi:/home/node/api
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - myapi:/data/db
+
+  redis-server:
+    image: 'redis'
+    volumes:
+      - myapi:/home/node/api
+volumes:
+  myapi:

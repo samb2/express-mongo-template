@@ -1,0 +1,24 @@
+{
+  "validator": {
+    "auth": {
+      "please enter a valid email": "Veuillez entrer une adresse e-mail valide",
+      "password must be at least 6 characters long": "Le mot de passe doit contenir au moins 6 caractères",
+      "token required": "Token requis"
+    },
+    "user": {
+      "first name must be at least 2 characters long and less than 25 characters": "Le prénom doit contenir entre 2 et 25 caractères",
+      "last name must be at least 2 characters long and less than 25 characters": "Le nom de famille doit contenir entre 2 et 25 caractères",
+      "first name must be string": "Le prénom doit être une chaîne de caractères",
+      "last name must be string": "Le nom de famille doit être une chaîne de caractères"
+    }
+  },
+  "service": {
+    "auth": {
+      "this email registered before": "Cette adresse e-mail est déjà enregistrée",
+      "email send successfully": "E-mail envoyé avec succès",
+      "your password changed successfully": "Votre mot de passe a été changé avec succès",
+      "this token expired": "Ce token a expiré",
+      "username or password is wrong!": "le nom d'utilisateur ou le mot de passe est erroné!"
+    }
+  }
+}

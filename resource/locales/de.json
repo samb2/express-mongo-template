@@ -1,0 +1,24 @@
+{
+  "validator": {
+    "auth": {
+      "please enter a valid email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      "password must be at least 6 characters long": "Passwort muss mindestens 6 Zeichen lang sein",
+      "token required": "Token erforderlich"
+    },
+    "user": {
+      "first name must be at least 2 characters long and less than 25 characters": "Vorname muss mindestens 2 Zeichen lang und weniger als 25 Zeichen sein",
+      "last name must be at least 2 characters long and less than 25 characters": "Nachname muss mindestens 2 Zeichen lang und weniger als 25 Zeichen sein",
+      "first name must be string": "Vorname muss eine Zeichenfolge sein",
+      "last name must be string": "Nachname muss eine Zeichenfolge sein"
+    }
+  },
+  "service": {
+    "auth": {
+      "this email registered before": "Diese E-Mail wurde bereits registriert",
+      "email send successfully": "E-Mail erfolgreich versendet",
+      "your password changed successfully": "Ihr Passwort wurde erfolgreich geändert",
+      "this token expired": "Dieser Token ist abgelaufen",
+      "username or password is wrong!": "Benutzername oder Passwort ist falsch!"
+    }
+  }
+}
