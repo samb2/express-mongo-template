@@ -93,7 +93,7 @@ To deploy this project run
   npm run i
 ```
 
-### step 2: : running all Tests ( Require for i18n strings )
+### step 2: : running all Tests
 
 ```bash
   npm run jest
