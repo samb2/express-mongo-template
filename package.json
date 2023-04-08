@@ -19,7 +19,21 @@
     "type": "git",
     "url": "git+https://github.com/samb2/irole-express-mongo-template.git"
   },
-  "keywords": [],
+  "keywords": [
+    "express",
+    "typescript",
+    "api",
+    "microservice",
+    "mongoDB",
+    "mongoose",
+    "template",
+    "boilerplate",
+    "redis",
+    "i18n",
+    "passport",
+    "jest",
+    "swagger"
+  ],
   "author": "samb2 and mohamad_ka",
   "license": "ISC",
   "bugs": {
@@ -45,7 +59,6 @@
     "express": "^4.18.2",
     "express-jsdoc-swagger": "^1.8.0",
     "express-rate-limit": "^6.7.0",
-    "express-session": "^1.17.3",
     "express-validator": "^6.14.2",
     "helmet": "^6.0.1",
     "http-status-codes": "^2.2.0",
