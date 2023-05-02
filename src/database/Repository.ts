@@ -106,9 +106,9 @@ export default class Repository<T extends Document> implements IRepository<T> {
             results = await this.model.find(where, {}, { ...options, skip }).exec();
         }
 
-        const count = await this.model.countDocuments(where);
+        const count: number = await this.model.countDocuments(where);
 
-        const totalPages = Math.ceil(count / limit);
+        const totalPages: number = Math.ceil(count / limit);
 
         return {
             results,

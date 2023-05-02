@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import i18n from 'i18n';
 
-export default function t(key: string, fileAddress) {
+export default function t(key: string, fileAddress): string {
     if (!i18n.getLocale()) {
         // Translate Config
         i18n.configure(Config.language);
@@ -18,17 +18,17 @@ export default function t(key: string, fileAddress) {
     const address = `${folderName}.${fileName}.${key.toLowerCase()}`;
     // add new translate
     if (!checkAddressExist(translations, address)) {
-        setValue(translations, address, key).then(() => {
+        setValue(translations, address, key).then((): void => {
             fs.writeFileSync(`./resource/locales/${lang}.json`, JSON.stringify(translations, null, 2));
         });
     }
     return getTranslate(translations, address);
 }
 
-async function setValue(object, path, value) {
+async function setValue(object, path, value): Promise<void> {
     const way = path.replace(/\[/g, '.').replace(/\]/g, '').split('.');
     const last = way.pop();
-    way.reduce(function (o, k, i, kk) {
+    way.reduce(function(o, k, i, kk) {
         return (o[k] = o[k] || (isFinite(i + 1 in kk ? kk[i + 1] : last) ? [] : {}));
     }, object)[last] = value;
 }

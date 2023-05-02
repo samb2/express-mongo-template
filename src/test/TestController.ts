@@ -20,7 +20,7 @@ export class TestController {
     }
 
     async createRequest(method: string, path: string, options: IRequestOption = { lang: 'en' }) {
-        const agent = request.agent(this.getApp());
+        const agent: request.SuperAgentTest = request.agent(this.getApp());
         const req = agent[method](`${this.getBaseURL()}${path}`)
             .set('Accept', 'application/json')
             .set('accept-language', options.lang)
@@ -38,7 +38,7 @@ export class TestController {
         return <App>this.app;
     }
 
-    setApp(value: App) {
+    setApp(value: App): void {
         this.app = value;
     }
 
@@ -46,7 +46,7 @@ export class TestController {
         return <string>this.baseURL;
     }
 
-    setBaseURL(value: string) {
+    setBaseURL(value: string): void {
         this.baseURL = value;
     }
 }

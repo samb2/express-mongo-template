@@ -2,9 +2,9 @@ import authTestController from '../../test/auth/AuthTestController';
 import { getReasonPhrase } from 'http-status-codes';
 import { user1 } from '../../test/constants/auth';
 
-describe('Register', () => {
-    describe('POST /api/v1/register (Register)', () => {
-        it('Should Register a User', async () => {
+describe('Register', (): void => {
+    describe('POST /api/v1/register (Register)', (): void => {
+        it('Should Register a User', async (): Promise<void> => {
             const response = await authTestController.register();
 
             expect(response.body.success).toEqual(true);
@@ -14,7 +14,7 @@ describe('Register', () => {
             expect(response.body.result.token).toBeTruthy();
         });
 
-        it('Should Register a User (with trimmed email)', async () => {
+        it('Should Register a User (with trimmed email)', async (): Promise<void> => {
             const data = {
                 email: '  test@test.com',
                 password: user1.password,
@@ -28,7 +28,7 @@ describe('Register', () => {
             expect(response.body.result.token).toBeTruthy();
         });
 
-        it('Should Register a User (with trimmed password)', async () => {
+        it('Should Register a User (with trimmed password)', async (): Promise<void> => {
             const data = {
                 email: user1.email,
                 password: '     12345678',
@@ -42,7 +42,7 @@ describe('Register', () => {
             expect(response.body.result.token).toBeTruthy();
         });
 
-        it('Should Fail Register Please enter a valid email (email is empty)', async () => {
+        it('Should Fail Register Please enter a valid email (email is empty)', async (): Promise<void> => {
             const data = {
                 password: user1.password,
             };
@@ -55,7 +55,7 @@ describe('Register', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=fr Register Please enter a valid email (email is empty)', async () => {
+        it('Should Fail lang=fr Register Please enter a valid email (email is empty)', async (): Promise<void> => {
             const data = {
                 password: user1.password,
             };
@@ -68,7 +68,7 @@ describe('Register', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail Register Please enter a valid email (email not Validate)', async () => {
+        it('Should Fail Register Please enter a valid email (email not Validate)', async (): Promise<void> => {
             const data = {
                 email: 'notvalidemail',
                 password: user1.password,
@@ -82,7 +82,7 @@ describe('Register', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=de Register Please enter a valid email (email not Validate)', async () => {
+        it('Should Fail lang=de Register Please enter a valid email (email not Validate)', async (): Promise<void> => {
             const data = {
                 email: 'notvalidemail',
                 password: user1.password,
@@ -96,7 +96,7 @@ describe('Register', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail Register Password must be at least 6 characters long (password is empty)', async () => {
+        it('Should Fail Register Password must be at least 6 characters long (password is empty)', async (): Promise<void> => {
             const data = {
                 email: user1.email,
             };
@@ -109,7 +109,7 @@ describe('Register', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=de Register Password must be at least 6 characters long (password is empty)', async () => {
+        it('Should Fail lang=de Register Password must be at least 6 characters long (password is empty)', async (): Promise<void> => {
             const data = {
                 email: user1.email,
             };
@@ -122,7 +122,7 @@ describe('Register', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail Register Password must be at least 6 characters long (short password)', async () => {
+        it('Should Fail Register Password must be at least 6 characters long (short password)', async (): Promise<void> => {
             const data = {
                 email: user1.email,
                 password: 'short',
@@ -136,7 +136,7 @@ describe('Register', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=fr Register Password must be at least 6 characters long (short password)', async () => {
+        it('Should Fail lang=fr Register Password must be at least 6 characters long (short password)', async (): Promise<void> => {
             const data = {
                 email: user1.email,
                 password: 'short',
@@ -150,7 +150,7 @@ describe('Register', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail Register This Email Registered Before', async () => {
+        it('Should Fail Register This Email Registered Before', async (): Promise<void> => {
             await authTestController.register();
             const response = await authTestController.register();
 
@@ -161,7 +161,7 @@ describe('Register', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail lang=de Register This Email Registered Before', async () => {
+        it('Should Fail lang=de Register This Email Registered Before', async (): Promise<void> => {
             await authTestController.register();
             const response = await authTestController.register(user1, 'de');
 

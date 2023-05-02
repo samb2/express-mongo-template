@@ -2,8 +2,8 @@ import User from '../../database/model/user';
 import { user1, user2, user3, user4, user5 } from '../../test/constants/auth';
 import userTestController from '../../test/user/UserTestController';
 
-describe('Repository', () => {
-    beforeEach(async () => {
+describe('Repository', (): void => {
+    beforeEach(async (): Promise<void> => {
         // create users
         await userTestController.createUsers([
             { email: user1.email, password: user1.password },
@@ -13,20 +13,20 @@ describe('Repository', () => {
         ]);
     });
 
-    describe('find(where, option, cache)', () => {
-        it('Should find()', async () => {
+    describe('find(where, option, cache)', (): void => {
+        it('Should find()', async (): Promise<void> => {
             const response = await User.find({});
 
             expect(response.length).toEqual(4);
         });
 
-        it('Should find() with where', async () => {
+        it('Should find() with where', async (): Promise<void> => {
             const response = await User.find({ email: 'testUser1@test.com' });
 
             expect(response.length).toEqual(1);
         });
 
-        it('Should find() with select', async () => {
+        it('Should find() with select', async (): Promise<void> => {
             const response = await User.find({}, { select: 'email password' });
 
             expect(response.length).toEqual(4);
@@ -35,46 +35,46 @@ describe('Repository', () => {
             expect(response[0].createdAt).toBeUndefined();
         });
 
-        it('Should find() with sort', async () => {
+        it('Should find() with sort', async (): Promise<void> => {
             const response = await User.find({}, { sort: { createdAt: 1 } });
 
             expect(response.length).toEqual(4);
         });
 
-        it('Should find() with limit', async () => {
+        it('Should find() with limit', async (): Promise<void> => {
             const response = await User.find({}, { limit: 2 });
 
             expect(response.length).toEqual(2);
         });
 
-        it('Should find() with skip', async () => {
+        it('Should find() with skip', async (): Promise<void> => {
             const response = await User.find({}, { skip: 2 });
 
             expect(response.length).toEqual(2);
             expect(response[0].email).toEqual(user3.email);
         });
 
-        it('Should find() with lean', async () => {
+        it('Should find() with lean', async (): Promise<void> => {
             const response = await User.find({}, { lean: true });
 
             expect(response.length).toEqual(4);
         });
 
-        it('Should find() with cache', async () => {
+        it('Should find() with cache', async (): Promise<void> => {
             const response = await User.find({}, {}, {});
 
             expect(response.length).toEqual(4);
         });
     });
 
-    describe('findOne(where, option, cache)', () => {
-        it('Should findOne()', async () => {
+    describe('findOne(where, option, cache)', (): void => {
+        it('Should findOne()', async (): Promise<void> => {
             const response = await User.findOne({ email: user4.email });
 
             expect(response.email).toEqual(user4.email);
         });
 
-        it('Should findOne() with select', async () => {
+        it('Should findOne() with select', async (): Promise<void> => {
             const response = await User.findOne({ email: user4.email }, { select: 'email password' });
 
             expect(response).toHaveProperty('email');
@@ -83,14 +83,14 @@ describe('Repository', () => {
             expect(response.createdAt).toBeUndefined();
         });
 
-        it('Should findOne() with lean', async () => {
+        it('Should findOne() with lean', async (): Promise<void> => {
             const response = await User.findOne({ email: user4.email }, { lean: true });
 
             expect(response).toBeTruthy();
             expect(response.email).toEqual(user4.email);
         });
 
-        it('Should findOne() with cache', async () => {
+        it('Should findOne() with cache', async (): Promise<void> => {
             const response = await User.findOne({ email: user4.email }, {}, {});
 
             expect(response).toBeTruthy();
@@ -98,15 +98,15 @@ describe('Repository', () => {
         });
     });
 
-    describe('findById(where, option, cache)', () => {
-        it('Should findById()', async () => {
+    describe('findById(where, option, cache)', (): void => {
+        it('Should findById()', async (): Promise<void> => {
             const userId = await User.findOne({ email: user1.email });
             const response = await User.findById(userId._id);
 
             expect(response.email).toEqual(user1.email);
         });
 
-        it('Should findById() with select', async () => {
+        it('Should findById() with select', async (): Promise<void> => {
             const userId = await User.findOne({ email: user1.email });
             const response = await User.findById(userId._id, { select: 'email' });
 
@@ -114,14 +114,14 @@ describe('Repository', () => {
             expect(response.password).toBeUndefined();
         });
 
-        it('Should findById() with lean', async () => {
+        it('Should findById() with lean', async (): Promise<void> => {
             const userId = await User.findOne({ email: user1.email });
             const response = await User.findById(userId._id, { lean: true });
 
             expect(response.email).toEqual(user1.email);
         });
 
-        it('Should findById() with cache', async () => {
+        it('Should findById() with cache', async (): Promise<void> => {
             const userId = await User.findOne({ email: user1.email });
             const response = await User.findById(userId._id, {}, {});
 
@@ -129,8 +129,8 @@ describe('Repository', () => {
         });
     });
 
-    describe('paginate(where, option, cache)', () => {
-        it('Should paginate()', async () => {
+    describe('paginate(where, option, cache)', (): void => {
+        it('Should paginate()', async (): Promise<void> => {
             const response = await User.paginate({}, { page: 1, limit: 2 });
 
             expect(response.results).toHaveLength(2);
@@ -140,7 +140,7 @@ describe('Repository', () => {
             expect(response.limit).toEqual(2);
         });
 
-        it('Should paginate() with select', async () => {
+        it('Should paginate() with select', async (): Promise<void> => {
             const response = await User.paginate({}, { page: 1, limit: 2, select: 'email' });
 
             expect(response.results).toHaveLength(2);
@@ -150,7 +150,7 @@ describe('Repository', () => {
             expect(response.limit).toEqual(2);
         });
 
-        it('Should paginate() with sort', async () => {
+        it('Should paginate() with sort', async (): Promise<void> => {
             const response = await User.paginate({}, { page: 1, limit: 2, sort: { createdAt: 1 } });
 
             expect(response.results).toHaveLength(2);
@@ -160,7 +160,7 @@ describe('Repository', () => {
             expect(response.limit).toEqual(2);
         });
 
-        it('Should paginate() with lean', async () => {
+        it('Should paginate() with lean', async (): Promise<void> => {
             const response = await User.paginate({}, { page: 1, limit: 2, lean: true });
 
             expect(response.results).toHaveLength(2);
@@ -170,7 +170,7 @@ describe('Repository', () => {
             expect(response.limit).toEqual(2);
         });
 
-        it('Should paginate() with cache', async () => {
+        it('Should paginate() with cache', async (): Promise<void> => {
             const response = await User.paginate({}, { page: 1, limit: 2, lean: true }, {});
 
             expect(response.results).toHaveLength(2);
@@ -181,24 +181,24 @@ describe('Repository', () => {
         });
     });
 
-    describe('update(where , update)', () => {
-        it('Should update()', async () => {
+    describe('update(where , update)', (): void => {
+        it('Should update()', async (): Promise<void> => {
             const response = await User.update({ email: user1.email }, { email: 'update@test.com' });
 
             expect(response.acknowledged).toEqual(true);
         });
     });
 
-    describe('findOneAndUpdate(where , update)', () => {
-        it('Should findOneAndUpdate()', async () => {
+    describe('findOneAndUpdate(where , update)', (): void => {
+        it('Should findOneAndUpdate()', async (): Promise<void> => {
             const response = await User.findOneAndUpdate({ email: user1.email }, { email: 'update@test.com' });
 
             expect(response.email).toEqual(user1.email);
         });
     });
 
-    describe('findByIdAndUpdate(id , update)', () => {
-        it('Should findByIdAndUpdate()', async () => {
+    describe('findByIdAndUpdate(id , update)', (): void => {
+        it('Should findByIdAndUpdate()', async (): Promise<void> => {
             const userId = await User.findOne({ email: user1.email });
             const response = await User.findByIdAndUpdate(userId._id, { email: 'update@test.com' });
 
@@ -206,8 +206,8 @@ describe('Repository', () => {
         });
     });
 
-    describe('updateMany(where , update)', () => {
-        it('Should updateMany()', async () => {
+    describe('updateMany(where , update)', (): void => {
+        it('Should updateMany()', async (): Promise<void> => {
             const response = await User.updateMany({ password: user4.password }, { password: '12345678' });
 
             expect(response.acknowledged).toEqual(true);
@@ -215,8 +215,8 @@ describe('Repository', () => {
         });
     });
 
-    describe('deleteMany(where)', () => {
-        it('Should deleteMany()', async () => {
+    describe('deleteMany(where)', (): void => {
+        it('Should deleteMany()', async (): Promise<void> => {
             const response = await User.deleteMany({ password: user4.password });
 
             expect(response.acknowledged).toEqual(true);
@@ -224,8 +224,8 @@ describe('Repository', () => {
         });
     });
 
-    describe('findByIdAndDelete(id)', () => {
-        it('Should findByIdAndDelete()', async () => {
+    describe('findByIdAndDelete(id)', (): void => {
+        it('Should findByIdAndDelete()', async (): Promise<void> => {
             const userId = await User.findOne({ email: user1.email });
             const response = await User.findByIdAndDelete(userId);
 
@@ -233,24 +233,24 @@ describe('Repository', () => {
         });
     });
 
-    describe('findOneAndDelete(where)', () => {
-        it('Should findOneAndDelete()', async () => {
+    describe('findOneAndDelete(where)', (): void => {
+        it('Should findOneAndDelete()', async (): Promise<void> => {
             const response = await User.findOneAndDelete({ email: user1.email });
 
             expect(response.email).toEqual(user1.email);
         });
     });
 
-    describe('insert(value)', () => {
-        it('Should insert()', async () => {
+    describe('insert(value)', (): void => {
+        it('Should insert()', async (): Promise<void> => {
             const response = await User.insert({ email: user5.email, password: user5.password });
 
             expect(response.email).toEqual(user5.email);
         });
     });
 
-    describe('insertWithoutSave(value)', () => {
-        it('Should insertWithoutSave()', async () => {
+    describe('insertWithoutSave(value)', (): void => {
+        it('Should insertWithoutSave()', async (): Promise<void> => {
             const response = await User.insertWithoutSave({ email: user5.email, password: user5.password });
 
             expect(response.email).toEqual(user5.email);

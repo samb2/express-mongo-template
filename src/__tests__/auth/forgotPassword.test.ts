@@ -2,13 +2,13 @@ import authTestController from '../../test/auth/AuthTestController';
 import { getReasonPhrase } from 'http-status-codes';
 import { user1 } from '../../test/constants/auth';
 
-describe('Forgot Password', () => {
-    beforeEach(async () => {
+describe('Forgot Password', (): void => {
+    beforeEach(async (): Promise<void> => {
         await authTestController.register(user1);
     });
 
-    describe('POST /api/v1/forgotPassword (Forgot Password)', () => {
-        it('Should Forgot Password a User', async () => {
+    describe('POST /api/v1/forgotPassword (Forgot Password)', (): void => {
+        it('Should Forgot Password a User', async (): Promise<void> => {
             const data = {
                 email: user1.email,
             };
@@ -21,7 +21,7 @@ describe('Forgot Password', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Forgot Password a User (with trimmed email)', async () => {
+        it('Should Forgot Password a User (with trimmed email)', async (): Promise<void> => {
             const data = {
                 email: `      ${user1.email}`,
             };
@@ -34,7 +34,7 @@ describe('Forgot Password', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail Forgot Password Please enter a valid email (email is empty)', async () => {
+        it('Should Fail Forgot Password Please enter a valid email (email is empty)', async (): Promise<void> => {
             const data = {
                 email: ' ',
             };
@@ -47,7 +47,7 @@ describe('Forgot Password', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=de Forgot Password Please enter a valid email (email is empty)', async () => {
+        it('Should Fail lang=de Forgot Password Please enter a valid email (email is empty)', async (): Promise<void> => {
             const data = {
                 email: ' ',
             };
@@ -60,7 +60,7 @@ describe('Forgot Password', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail Forgot Password Please enter a valid email (email not Validate)', async () => {
+        it('Should Fail Forgot Password Please enter a valid email (email not Validate)', async (): Promise<void> => {
             const data = {
                 email: 'notValidEmail',
             };
@@ -73,7 +73,7 @@ describe('Forgot Password', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=fr Forgot Password Please enter a valid email (email not Validate)', async () => {
+        it('Should Fail lang=fr Forgot Password Please enter a valid email (email not Validate)', async (): Promise<void> => {
             const data = {
                 email: 'notValidEmail',
             };

@@ -5,7 +5,7 @@ import { applySpeedGooseCacheLayer } from 'speedgoose';
 
 let mongodb;
 
-beforeAll(async () => {
+beforeAll(async (): Promise<void> => {
     // This will create a new instance of "MongoMemoryServer" and automatically start it
     mongodb = await MongoMemoryServer.create();
     const mongoUri = mongodb.getUri();
@@ -16,11 +16,11 @@ beforeAll(async () => {
     });
 });
 
-beforeEach(async () => {
+beforeEach(async (): Promise<void> => {
     await mongoose.connection.dropDatabase();
 });
 
-afterAll(async () => {
+afterAll(async (): Promise<void> => {
     await mongodb.stop();
     await mongoose.connection.close();
 });

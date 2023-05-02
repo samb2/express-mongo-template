@@ -3,9 +3,9 @@ import User from './model/user';
 import ResetPassword from './model/resetPassword';
 
 // ----- Change DataBase Url with your env -----
-const migrate_url = 'mongodb://localhost:27017/iRole-Express-mongodb-dev';
+const migrate_url: string = 'mongodb://localhost:27017/iRole-Express-mongodb-dev';
 // ---------------------------------------------
-const getModels = async () => {
+const getModels = async (): Promise<any> => {
     mongoose.set('strictQuery', false);
     // Ensure connection is open so we can run migrations
     if (mongoose.connection.readyState !== 1) {

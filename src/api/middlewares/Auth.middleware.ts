@@ -4,7 +4,7 @@ import passport from 'passport';
 import { UnauthorizedError } from 'irolegroup';
 
 class AuthMiddleware extends Middleware {
-    publicAuth(req: Request, res: Response, next: NextFunction) {
+    publicAuth(req: Request, res: Response, next: NextFunction): void {
         passport.authenticate('jwt', { session: false }, (err, user) => {
             if (err || !user) return next();
             req.user = user;
@@ -12,7 +12,7 @@ class AuthMiddleware extends Middleware {
         })(req, res, next);
     }
 
-    privateAuth(req: Request, res: Response, next: NextFunction) {
+    privateAuth(req: Request, res: Response, next: NextFunction): void {
         passport.authenticate('jwt', { session: false }, (err, user, info) => {
             if (user) {
                 req.user = user;

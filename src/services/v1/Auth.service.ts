@@ -64,10 +64,10 @@ class AuthService extends Service implements IAuthService {
             const { token } = await ResetPassword.insert(resetPasswordObject);
             if (process.env.NODE_ENV !== 'test') {
                 // reset password link send to email
-                const from = 'irolegroup@gmail.com';
-                const to = email;
-                const subject = 'reset password test';
-                const text = `your token is ${token}`;
+                const from: string = 'irolegroup@gmail.com';
+                const to: string = email;
+                const subject: string = 'reset password test';
+                const text: string = `your token is ${token}`;
 
                 await Email.sendMail(from, to, subject, text);
             }

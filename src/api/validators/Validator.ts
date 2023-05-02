@@ -8,7 +8,7 @@ export default class Validator {
         autoBind(this);
     }
 
-    handleValidationResult(req: Request, res: Response, next: NextFunction) {
+    handleValidationResult(req: Request, res: Response, next: NextFunction): void {
         const errors: any = validationResult(req);
         if (!errors.isEmpty()) {
             throw new ValidationError(errors.array());

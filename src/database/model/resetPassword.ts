@@ -12,7 +12,7 @@ class ResetPassword extends Repository<IResetPasswordDocument> {
         super(resetPasswordModel);
     }
 
-    async tokenUsed(token: string) {
+    async tokenUsed(token: string): Promise<any> {
         return this.findOneAndUpdate({ token }, { use: true });
     }
 }
@@ -26,7 +26,7 @@ const resetPasswordTokenSchema = new Schema<IResetPasswordDocument>(
     {
         timestamps: true,
         toJSON: {
-            transform(doc: any, ret: any) {
+            transform(doc: any, ret: any): void {
                 ret.id = ret._id;
                 delete ret._id;
             },

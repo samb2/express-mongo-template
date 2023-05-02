@@ -14,7 +14,7 @@ passport.use(
             jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
             secretOrKey: Config.jwt.secret_key,
         },
-        async (jwtPayload: JwtPayload, done: VerifiedCallback) => {
+        async (jwtPayload: JwtPayload, done: VerifiedCallback): Promise<void> => {
             try {
                 // Select User by id
                 const user: UserDto = await User.findById(jwtPayload.id);

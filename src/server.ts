@@ -18,7 +18,7 @@ export class Server {
         this.setServer();
     }
 
-    setMongoConnection() {
+    setMongoConnection(): void {
         //process.env.DatabaseUrl === undefined ? this.mongoDbName = process.env.DatabaseUrl : Config.database.url;
         mongoose.set('strictQuery', Config.database.strictQuery);
         mongoose
@@ -30,7 +30,7 @@ export class Server {
         }).then(() => logger.info('connect to Redis Database!'));
     }
 
-    setServer() {
+    setServer(): void {
         /**
          * Create HTTP server.
          */
@@ -44,12 +44,12 @@ export class Server {
     /**
      * Event listener for HTTP server "error" event.
      */
-    onError(error: any) {
+    onError(error: any): void {
         if (error.syscall !== 'listen') {
             throw error;
         }
 
-        const bind = `Port ${this.port}`;
+        const bind: string = `Port ${this.port}`;
 
         // handle specific listen errors with friendly messages
         switch (error.code) {

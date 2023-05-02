@@ -1,30 +1,30 @@
 import { bcryptPassword, comparePassword } from '../../utils/password';
 
-describe('Repository', () => {
-    describe('bcryptPassword', () => {
-        it('Should bcryptPassword()', async () => {
-            const password = 'testPassword';
-            const response = bcryptPassword(password);
+describe('Repository', (): void => {
+    describe('bcryptPassword', (): void => {
+        it('Should bcryptPassword()', async (): Promise<void> => {
+            const password: string = 'testPassword';
+            const response: string = bcryptPassword(password);
 
             expect(response).toBeTruthy();
             expect(response).not.toBeUndefined();
         });
 
-        it('Should comparePassword()', async () => {
-            const password = 'testPassword';
-            const bcryptedPassword = bcryptPassword(password);
+        it('Should comparePassword()', async (): Promise<void> => {
+            const password: string = 'testPassword';
+            const bcryptedPassword: string = bcryptPassword(password);
 
-            const response = comparePassword(password, bcryptedPassword);
+            const response: boolean = comparePassword(password, bcryptedPassword);
 
             expect(response).toEqual(true);
         });
 
-        it('Should fail comparePassword()', async () => {
-            const password = 'testPassword';
-            const wrongPassword = 'wrongPassword';
-            const bcryptedPassword = bcryptPassword(password);
+        it('Should fail comparePassword()', async (): Promise<void> => {
+            const password: string = 'testPassword';
+            const wrongPassword: string = 'wrongPassword';
+            const bcryptedPassword: string = bcryptPassword(password);
 
-            const response = comparePassword(wrongPassword, bcryptedPassword);
+            const response: boolean = comparePassword(wrongPassword, bcryptedPassword);
 
             expect(response).toEqual(false);
         });

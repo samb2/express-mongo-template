@@ -5,14 +5,14 @@ import { UserUpdateDto } from '../../api/dtos/user.dto';
 
 let token;
 
-describe('User', () => {
-    beforeEach(async () => {
+describe('User', (): void => {
+    beforeEach(async (): Promise<void> => {
         // create user
         token = await authTestController.registerAndGetToken();
     });
 
-    describe('Get /user (Get Profile)', () => {
-        it('Should Get user profile', async () => {
+    describe('Get /user (Get Profile)', (): void => {
+        it('Should Get user profile', async (): Promise<void> => {
             const response = await userTestController.getProfile(token);
 
             expect(response.body.success).toEqual(true);
@@ -22,7 +22,7 @@ describe('User', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Get user profile with firstname and lastname', async () => {
+        it('Should Get user profile with firstname and lastname', async (): Promise<void> => {
             // Update user
             const updateBody: UserUpdateDto = {
                 firstName: 'testFirstName',
@@ -43,7 +43,7 @@ describe('User', () => {
             expect(response.body.result).toHaveProperty('email');
         });
 
-        it('Should Fail Token jwt malformed', async () => {
+        it('Should Fail Token jwt malformed', async (): Promise<void> => {
             const response = await userTestController.getProfile();
 
             expect(response.body.success).toEqual(false);
@@ -52,7 +52,7 @@ describe('User', () => {
             expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
             expect(response.body.result).toBeTruthy();
         });
-        it('Should Fail Token jwt malformed', async () => {
+        it('Should Fail Token jwt malformed', async (): Promise<void> => {
             const response = await userTestController.getProfile({});
 
             expect(response.body.success).toEqual(false);
@@ -63,8 +63,8 @@ describe('User', () => {
         });
     });
 
-    describe('Update /user (Update Profile)', () => {
-        it('Should Update user profile', async () => {
+    describe('Update /user (Update Profile)', (): void => {
+        it('Should Update user profile', async (): Promise<void> => {
             const updateBody: UserUpdateDto = {
                 firstName: 'testFirstName',
                 lastName: 'testLastName',
@@ -78,7 +78,7 @@ describe('User', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail First Name must be string', async () => {
+        it('Should Fail First Name must be string', async (): Promise<void> => {
             const updateBody = {
                 firstName: 123,
                 lastName: 'testLastName',
@@ -92,7 +92,7 @@ describe('User', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail lang=fr First Name must be string', async () => {
+        it('Should Fail lang=fr First Name must be string', async (): Promise<void> => {
             const updateBody = {
                 firstName: 123,
                 lastName: 'testLastName',
@@ -134,7 +134,7 @@ describe('User', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail Last Name must be string', async () => {
+        it('Should Fail Last Name must be string', async (): Promise<void> => {
             const updateBody = {
                 firstName: 'testFirstName',
                 lastName: 123,
@@ -148,7 +148,7 @@ describe('User', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail lanf=fr Last Name must be string', async () => {
+        it('Should Fail lanf=fr Last Name must be string', async (): Promise<void> => {
             const updateBody = {
                 firstName: 'testFirstName',
                 lastName: 123,
@@ -190,7 +190,7 @@ describe('User', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail Token jwt malformed', async () => {
+        it('Should Fail Token jwt malformed', async (): Promise<void> => {
             const response = await userTestController.updateProfile(false, {});
 
             expect(response.body.success).toEqual(false);

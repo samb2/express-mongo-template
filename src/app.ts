@@ -28,7 +28,7 @@ export class App {
         this.setRoutes();
     }
 
-    setConfig() {
+    setConfig(): void {
         // Translate Config
         i18n.configure(Config.language);
         this.app.use(i18n.init);
@@ -56,7 +56,7 @@ export class App {
         }
     }
 
-    setRoutes() {
+    setRoutes(): void {
         this.app.use(router);
     }
 }

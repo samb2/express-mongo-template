@@ -1,8 +1,8 @@
-import express from 'express';
+import express, { Router } from 'express';
 import authController from '../../../controllers/v1/Auth.controller';
 import authValidator from '../../../validators/v1/Auth.validator';
 
-const router = express.Router();
+const router: Router = express.Router();
 /*  /api/v1/auth  */
 router.post('/register', authValidator.register(), authController.register);
 router.post('/login', authValidator.login(), authController.login);

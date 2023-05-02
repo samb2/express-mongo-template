@@ -15,7 +15,7 @@ class email {
         });
     }
 
-    async sendMail(from: string, to: string, subject: string, text: string) {
+    async sendMail(from: string, to: string, subject: string, text: string): Promise<void> {
         await this.transporter.sendMail({
             from,
             to,

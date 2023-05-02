@@ -5,16 +5,16 @@ import ResetPassword from '../../database/model/resetPassword';
 
 let token;
 
-describe('reset Password', () => {
-    beforeEach(async () => {
+describe('reset Password', (): void => {
+    beforeEach(async (): Promise<void> => {
         await authTestController.register(user1);
         await authTestController.forgotPassword({ email: user1.email });
         const resetPassword = await ResetPassword.findOne({ email: user1.email });
         token = resetPassword.token;
     });
 
-    describe('POST /api/v1/resetPassword (reset Password)', () => {
-        it('Should reset Password a User', async () => {
+    describe('POST /api/v1/resetPassword (reset Password)', (): void => {
+        it('Should reset Password a User', async (): Promise<void> => {
             const data = {
                 token,
                 password: resetPasswordInf.password,
@@ -28,7 +28,7 @@ describe('reset Password', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should reset Password a User (with trimmed password)', async () => {
+        it('Should reset Password a User (with trimmed password)', async (): Promise<void> => {
             const data = {
                 token,
                 password: `   ${resetPasswordInf.password}`,
@@ -42,7 +42,7 @@ describe('reset Password', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail reset Password Please enter a valid token (token is empty)', async () => {
+        it('Should Fail reset Password Please enter a valid token (token is empty)', async (): Promise<void> => {
             const data = {
                 password: `${resetPasswordInf.password}`,
             };
@@ -55,7 +55,7 @@ describe('reset Password', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=de reset Password Please enter a valid token (token is empty)', async () => {
+        it('Should Fail lang=de reset Password Please enter a valid token (token is empty)', async (): Promise<void> => {
             const data = {
                 password: `${resetPasswordInf.password}`,
             };
@@ -68,7 +68,7 @@ describe('reset Password', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail reset Password Please enter a valid token (token is invalid)', async () => {
+        it('Should Fail reset Password Please enter a valid token (token is invalid)', async (): Promise<void> => {
             const data = {
                 token: 'testToken',
                 password: ` ${resetPasswordInf.password}`,
@@ -82,7 +82,7 @@ describe('reset Password', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=fr reset Password Please enter a valid token (token is invalid)', async () => {
+        it('Should Fail lang=fr reset Password Please enter a valid token (token is invalid)', async (): Promise<void> => {
             const data = {
                 token: 'testToken',
                 password: ` ${resetPasswordInf.password}`,
@@ -96,7 +96,7 @@ describe('reset Password', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail reset Password Please enter a valid password (password is empty)', async () => {
+        it('Should Fail reset Password Please enter a valid password (password is empty)', async (): Promise<void> => {
             const data = {
                 token,
             };
@@ -109,7 +109,7 @@ describe('reset Password', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=de reset Password Please enter a valid password (password is empty)', async () => {
+        it('Should Fail lang=de reset Password Please enter a valid password (password is empty)', async (): Promise<void> => {
             const data = {
                 token,
             };
@@ -122,7 +122,7 @@ describe('reset Password', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail reset Password Please enter a valid password (password is invalid)', async () => {
+        it('Should Fail reset Password Please enter a valid password (password is invalid)', async (): Promise<void> => {
             const data = {
                 token,
                 password: `test`,
@@ -136,7 +136,7 @@ describe('reset Password', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=fr reset Password Please enter a valid password (password is invalid)', async () => {
+        it('Should Fail lang=fr reset Password Please enter a valid password (password is invalid)', async (): Promise<void> => {
             const data = {
                 token,
                 password: `test`,
@@ -150,7 +150,7 @@ describe('reset Password', () => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail reset Password This Token Expired', async () => {
+        it('Should Fail reset Password This Token Expired', async (): Promise<void> => {
             const data = {
                 token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RVc2VyQHRlc3QuY29tIiwiaWF0IjoxNjc4ODg5NTIwLCJleHAiOjE2Nzg4OTA0MjB9.uh4aoHJGmyJNellmVz-chfCij-GcAA-IjwDfbdHXAJs',
                 password: resetPasswordInf.password,
@@ -164,7 +164,7 @@ describe('reset Password', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail reset Password This Token Expired ( use token for reset password )', async () => {
+        it('Should Fail reset Password This Token Expired ( use token for reset password )', async (): Promise<void> => {
             const data = {
                 token,
                 password: resetPasswordInf.password,
@@ -179,7 +179,7 @@ describe('reset Password', () => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail lang=fr reset Password This Token Expired ( use token for reset password )', async () => {
+        it('Should Fail lang=fr reset Password This Token Expired ( use token for reset password )', async (): Promise<void> => {
             const data = {
                 token,
                 password: resetPasswordInf.password,

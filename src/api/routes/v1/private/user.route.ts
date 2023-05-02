@@ -1,8 +1,8 @@
-import express from 'express';
+import express, { Router } from 'express';
 import userController from '../../../controllers/v1/User.controller';
 import userValidator from '../../../validators/v1/User.validator';
 
-const router = express.Router();
+const router: Router = express.Router();
 
 /*  /api/v1/user  */
 router.get('/', userController.getProfile);
