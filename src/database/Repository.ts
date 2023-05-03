@@ -12,7 +12,7 @@ interface IOption {
     sort?: object;
     limit?: number;
     skip?: number;
-    populate?: [IPopulate];
+    populate?: [IPopulate] | string;
     lean?: boolean;
 }
 
@@ -27,7 +27,7 @@ interface PaginationOptions {
     sort?: object;
     limit: number;
     page: number;
-    populate?: [IPopulate];
+    populate?: [IPopulate] | string;
     lean?: boolean;
 }
 
