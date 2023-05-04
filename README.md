@@ -90,7 +90,7 @@ To deploy this project run
 ### step 1 : install dependencies
 
 ```bash
-  npm run i
+  npm i
 ```
 
 ### step 2: : running all Tests
