@@ -4,8 +4,8 @@ import debug0 from 'debug';
 
 import mongoose from 'mongoose';
 import { logger } from './config/logger';
-import { App } from './app';
 import { applySpeedGooseCacheLayer } from 'speedgoose';
+import App from './app';
 
 export class Server {
     port: number = Config.server.port;
@@ -34,7 +34,8 @@ export class Server {
         /**
          * Create HTTP server.
          */
-        this.server = http.createServer(new App().app);
+        const appInstance: App = App.getInstance();
+        this.server = http.createServer(appInstance.app);
         this.server.listen(this.port, () => {
             logger.info(`Server listening on port: ${this.port} Mode = ${Config.server.environment}`);
         });

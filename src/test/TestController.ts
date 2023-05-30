@@ -1,6 +1,7 @@
 import autoBind from 'auto-bind';
-import { App } from '../app';
+
 import request from 'supertest';
+import App from '../app';
 
 interface IRequestOption {
     token?: any;
@@ -15,7 +16,8 @@ export class TestController {
 
     constructor() {
         autoBind(this);
-        this.setApp(new App().app);
+        const appInstance: App = App.getInstance();
+        this.setApp(appInstance.app);
         this.setBaseURL('/api/v1');
     }
 
