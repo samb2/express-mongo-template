@@ -5,13 +5,11 @@ import { bcryptPassword, comparePassword } from '../../utils/password';
 import t from '../../utils/translate';
 import {
     ResetPasswordDto,
-    ForgotPasswordDto,
     LoginDto,
     RegisterDto,
     RegisterResDto,
     LoginResDto,
 } from '../../api/dtos/auth.dto';
-import { Types } from 'mongoose';
 import ResetPassword, { IResetPasswordDocument } from '../../database/model/resetPassword';
 import Email from '../../utils/email';
 import { ConflictError, ForbiddenError, UnauthorizedError } from 'irolegroup/dist/errors';
@@ -25,7 +23,7 @@ interface IAuthService {
 
     resetPasswordProcess(body: ResetPasswordDto): Promise<string>;
 
-    generateToken(userId: Types.ObjectId, type: string): string;
+    generateToken(data: string, type: string): string;
 }
 
 class AuthService extends Service implements IAuthService {
@@ -58,7 +56,7 @@ class AuthService extends Service implements IAuthService {
         if (userExist) {
             const resetPasswordObject: Partial<IResetPasswordDocument> = {
                 email,
-                token: jwt.sign({ email }, Config.jwt.email_key, { expiresIn: '15m' }),
+                token: this.generateToken(email, 'EMAIL_TOKEN'),
             };
             const { token } = await ResetPassword.insert(resetPasswordObject);
             if (process.env.NODE_ENV !== 'test') {
@@ -89,14 +87,17 @@ class AuthService extends Service implements IAuthService {
         return t('Your password Changed Successfully', __filename);
     }
 
-    generateToken(userId: Types.ObjectId, type: string = 'TOKEN'): string {
+    generateToken(data: string, type: string = 'TOKEN'): string {
         let expiresIn: string;
         if (type === 'TOKEN') {
             expiresIn = '1h';
-            return jwt.sign({ id: userId }, Config.jwt.secret_key, { expiresIn });
+            return jwt.sign({ id: data }, Config.jwt.secret_key, { expiresIn });
+        } else if (type === 'EMAIL_TOKEN') {
+            expiresIn = '15m';
+            return jwt.sign({ email: data }, Config.jwt.email_key, { expiresIn: '15m' });
         } else {
             expiresIn = '10d';
-            return jwt.sign({ id: userId }, Config.jwt.refresh_key, { expiresIn });
+            return jwt.sign({ id: data }, Config.jwt.refresh_key, { expiresIn });
         }
     }
 }
