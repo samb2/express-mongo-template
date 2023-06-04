@@ -21,7 +21,7 @@ interface IAuthService {
 
     loginProcess(body: LoginDto): Promise<LoginResDto>;
 
-    forgotPasswordProcess(body: ForgotPasswordDto): Promise<string>;
+    forgotPasswordProcess(email: string): Promise<string>;
 
     resetPasswordProcess(body: ResetPasswordDto): Promise<string>;
 
@@ -53,8 +53,7 @@ class AuthService extends Service implements IAuthService {
         };
     }
 
-    async forgotPasswordProcess(body: ForgotPasswordDto): Promise<string> {
-        const { email } = body;
+    async forgotPasswordProcess(email: string): Promise<string> {
         const userExist: boolean = await User.checkUserExistWithEmail(email);
         if (userExist) {
             const resetPasswordObject: Partial<IResetPasswordDocument> = {

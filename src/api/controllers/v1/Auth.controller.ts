@@ -167,7 +167,7 @@ class AuthController extends Controller implements IAuthController {
     async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
             const forgotPasswordDto: ForgotPasswordDto = req.body;
-            const result: string = await authService.forgotPasswordProcess(forgotPasswordDto);
+            const result: string = await authService.forgotPasswordProcess(forgotPasswordDto.email);
             this.success(result, res);
         } catch (e: any) {
             next(e);
