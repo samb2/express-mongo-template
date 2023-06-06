@@ -94,7 +94,7 @@ class AuthService extends Service implements IAuthService {
             return jwt.sign({ id: data }, Config.jwt.secret_key, { expiresIn });
         } else if (type === 'EMAIL_TOKEN') {
             expiresIn = '15m';
-            return jwt.sign({ email: data }, Config.jwt.email_key, { expiresIn: '15m' });
+            return jwt.sign({ email: data }, Config.jwt.email_key, { expiresIn });
         } else {
             expiresIn = '10d';
             return jwt.sign({ id: data }, Config.jwt.refresh_key, { expiresIn });
