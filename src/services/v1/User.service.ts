@@ -1,9 +1,16 @@
 import Service from '../Service';
 import { UserProfileResDto, UserUpdateDto, UserUpdateResDto } from '../../api/dtos/user.dto';
 import User from '../../database/model/user';
+import { Types } from 'mongoose';
 
-class UserService extends Service {
-    async getProfile(userId): Promise<UserProfileResDto> {
+interface IUserService {
+    getProfile(userId: Types.ObjectId): Promise<UserProfileResDto>;
+
+    updateProfile(userId: Types.ObjectId, body: UserUpdateDto): Promise<UserUpdateResDto>;
+}
+
+class UserService extends Service implements IUserService {
+    async getProfile(userId: Types.ObjectId): Promise<UserProfileResDto> {
         const result = await User.findById(userId, { lean: true });
         return {
             firstName: result.firstName,
@@ -13,7 +20,7 @@ class UserService extends Service {
         };
     }
 
-    async updateProfile(userId, body: UserUpdateDto): Promise<UserUpdateResDto> {
+    async updateProfile(userId: Types.ObjectId, body: UserUpdateDto): Promise<UserUpdateResDto> {
         const { firstName, lastName } = body;
         const result = await User.findByIdAndUpdate(userId, { firstName, lastName });
         return {
