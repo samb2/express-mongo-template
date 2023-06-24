@@ -10,7 +10,7 @@ interface IUserService {
 }
 
 class UserService extends Service implements IUserService {
-    async getProfile(userId: Types.ObjectId): Promise<UserProfileResDto> {
+    async getProfile(userId: any): Promise<UserProfileResDto> {
         const result = await User.findById(userId, { lean: true });
         return {
             firstName: result.firstName,
@@ -20,7 +20,7 @@ class UserService extends Service implements IUserService {
         };
     }
 
-    async updateProfile(userId: Types.ObjectId, body: UserUpdateDto): Promise<UserUpdateResDto> {
+    async updateProfile(userId: any, body: UserUpdateDto): Promise<UserUpdateResDto> {
         const { firstName, lastName } = body;
         const result = await User.findByIdAndUpdate(userId, { firstName, lastName });
         return {
