@@ -55,39 +55,12 @@ describe('reset Password', (): void => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=de reset Password Please enter a valid token (token is empty)', async (): Promise<void> => {
-            const data = {
-                password: `${resetPasswordInf.password}`,
-            };
-            const response = await authTestController.resetPassword(data, 'de');
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.errors).toBeTruthy();
-        });
-
         it('Should Fail reset Password Please enter a valid token (token is invalid)', async (): Promise<void> => {
             const data = {
                 token: 'testToken',
                 password: ` ${resetPasswordInf.password}`,
             };
             const response = await authTestController.resetPassword(data);
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.errors).toBeTruthy();
-        });
-
-        it('Should Fail lang=fr reset Password Please enter a valid token (token is invalid)', async (): Promise<void> => {
-            const data = {
-                token: 'testToken',
-                password: ` ${resetPasswordInf.password}`,
-            };
-            const response = await authTestController.resetPassword(data, 'fr');
 
             expect(response.body.success).toEqual(false);
             expect(response.status).toEqual(400);
@@ -109,39 +82,12 @@ describe('reset Password', (): void => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=de reset Password Please enter a valid password (password is empty)', async (): Promise<void> => {
-            const data = {
-                token,
-            };
-            const response = await authTestController.resetPassword(data, 'de');
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.errors).toBeTruthy();
-        });
-
         it('Should Fail reset Password Please enter a valid password (password is invalid)', async (): Promise<void> => {
             const data = {
                 token,
                 password: `test`,
             };
             const response = await authTestController.resetPassword(data);
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.errors).toBeTruthy();
-        });
-
-        it('Should Fail lang=fr reset Password Please enter a valid password (password is invalid)', async (): Promise<void> => {
-            const data = {
-                token,
-                password: `test`,
-            };
-            const response = await authTestController.resetPassword(data, 'fr');
 
             expect(response.body.success).toEqual(false);
             expect(response.status).toEqual(400);
@@ -171,21 +117,6 @@ describe('reset Password', (): void => {
             };
             await authTestController.resetPassword(data);
             const response = await authTestController.resetPassword(data);
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(403);
-            expect(response.body.status).toEqual(403);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.result).toBeTruthy();
-        });
-
-        it('Should Fail lang=fr reset Password This Token Expired ( use token for reset password )', async (): Promise<void> => {
-            const data = {
-                token,
-                password: resetPasswordInf.password,
-            };
-            await authTestController.resetPassword(data);
-            const response = await authTestController.resetPassword(data, 'fr');
 
             expect(response.body.success).toEqual(false);
             expect(response.status).toEqual(403);

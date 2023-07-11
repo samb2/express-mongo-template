@@ -18,12 +18,12 @@ class UserTestController extends TestController {
         await User.insertMany(values);
     }
 
-    async getProfile(token: any = false, lang: string = 'en'): Promise<any> {
-        return this.createRequest('get', '/user', { token, lang });
+    async getProfile(token: any = false): Promise<any> {
+        return this.createRequest('get', '/user', { token });
     }
 
-    async updateProfile(token: any = false, updateBody, lang: string = 'en'): Promise<any> {
-        return this.createRequest('patch', '/user', { token, data: updateBody, lang });
+    async updateProfile(token: any = false, updateBody): Promise<any> {
+        return this.createRequest('patch', '/user', { token, data: updateBody });
     }
 }
 

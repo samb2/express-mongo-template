@@ -55,19 +55,6 @@ describe('Register', (): void => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=fr Register Please enter a valid email (email is empty)', async (): Promise<void> => {
-            const data = {
-                password: user1.password,
-            };
-            const response = await authTestController.register(data, 'fr');
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.errors).toBeTruthy();
-        });
-
         it('Should Fail Register Please enter a valid email (email not Validate)', async (): Promise<void> => {
             const data = {
                 email: 'notvalidemail',
@@ -82,38 +69,11 @@ describe('Register', (): void => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=de Register Please enter a valid email (email not Validate)', async (): Promise<void> => {
-            const data = {
-                email: 'notvalidemail',
-                password: user1.password,
-            };
-            const response = await authTestController.register(data, 'de');
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.errors).toBeTruthy();
-        });
-
         it('Should Fail Register Password must be at least 6 characters long (password is empty)', async (): Promise<void> => {
             const data = {
                 email: user1.email,
             };
             const response = await authTestController.register(data);
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.errors).toBeTruthy();
-        });
-
-        it('Should Fail lang=de Register Password must be at least 6 characters long (password is empty)', async (): Promise<void> => {
-            const data = {
-                email: user1.email,
-            };
-            const response = await authTestController.register(data, 'de');
 
             expect(response.body.success).toEqual(false);
             expect(response.status).toEqual(400);
@@ -136,34 +96,9 @@ describe('Register', (): void => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=fr Register Password must be at least 6 characters long (short password)', async (): Promise<void> => {
-            const data = {
-                email: user1.email,
-                password: 'short',
-            };
-            const response = await authTestController.register(data, 'fr');
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.errors).toBeTruthy();
-        });
-
         it('Should Fail Register This Email Registered Before', async (): Promise<void> => {
             await authTestController.register();
             const response = await authTestController.register();
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(409);
-            expect(response.body.status).toEqual(409);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.result).toBeTruthy();
-        });
-
-        it('Should Fail lang=de Register This Email Registered Before', async (): Promise<void> => {
-            await authTestController.register();
-            const response = await authTestController.register(user1, 'de');
 
             expect(response.body.success).toEqual(false);
             expect(response.status).toEqual(409);

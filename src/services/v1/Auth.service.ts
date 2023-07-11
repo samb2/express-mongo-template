@@ -2,7 +2,6 @@ import Service from '../Service';
 import jwt from 'jsonwebtoken';
 import User, { IUserDocument } from '../../database/model/user';
 import { bcryptPassword, comparePassword } from '../../utils/password';
-import t from '../../utils/translate';
 import {
     ResetPasswordDto,
     LoginDto,
@@ -31,7 +30,7 @@ class AuthService extends Service implements IAuthService {
         const { email, password } = body;
 
         const userExist: boolean = await User.checkUserExistWithEmail(email);
-        if (userExist) throw new ConflictError(t('This Email Registered Before', __filename));
+        if (userExist) throw new ConflictError('This Email Registered Before');
         const user: IUserDocument = await User.insert({ email, password: bcryptPassword(password) });
         const token: string = this.generateToken(user.id, 'TOKEN');
         return { token };
@@ -40,9 +39,9 @@ class AuthService extends Service implements IAuthService {
     async loginProcess(body: LoginDto): Promise<LoginResDto> {
         const { email, password } = body;
         const user: IUserDocument = await User.findOne({ email });
-        if (!user) throw new UnauthorizedError(t('username or password is wrong!', __filename));
+        if (!user) throw new UnauthorizedError('username or password is wrong!');
         const checkPassword: boolean = comparePassword(password, user.password);
-        if (!checkPassword) throw new UnauthorizedError(t('username or password is wrong!', __filename));
+        if (!checkPassword) throw new UnauthorizedError('username or password is wrong!');
         const token: string = this.generateToken(user.id, 'TOKEN');
         const refreshToken: string = this.generateToken(user.id, 'REFRESH_TOKEN');
         return {
@@ -69,7 +68,7 @@ class AuthService extends Service implements IAuthService {
                 await Email.sendMail(from, to, subject, text);
             }
         }
-        return t('Email Send Successfully', __filename);
+        return 'Email Send Successfully';
     }
 
     async resetPasswordProcess(body: ResetPasswordDto): Promise<string> {
@@ -78,13 +77,13 @@ class AuthService extends Service implements IAuthService {
         const checkVerify: any = jwt.verify(token, Config.jwt.email_key);
         const resetPassword = await ResetPassword.findOne({ token });
         if (!resetPassword || resetPassword.use || checkVerify.email !== resetPassword.email) {
-            throw new ForbiddenError(t('This Token Expired', __filename));
+            throw new ForbiddenError('This Token Expired');
         }
         // Update User Password & set reset Password as used
         await User.findOneAndUpdate({ email: resetPassword.email }, { password: bcryptPassword(password) });
         await ResetPassword.tokenUsed(token);
 
-        return t('Your password Changed Successfully', __filename);
+        return 'Your password Changed Successfully';
     }
 
     generateToken(data: string, type: string = 'TOKEN'): string {

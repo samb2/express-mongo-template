@@ -7,7 +7,6 @@ interface IRequestOption {
     token?: any;
     data?: any;
     query?: any;
-    lang: string;
 }
 
 export class TestController {
@@ -21,11 +20,10 @@ export class TestController {
         this.setBaseURL('/api/v1');
     }
 
-    async createRequest(method: string, path: string, options: IRequestOption = { lang: 'en' }) {
+    async createRequest(method: string, path: string, options: IRequestOption = {}) {
         const agent: request.SuperAgentTest = request.agent(this.getApp());
         const req = agent[method](`${this.getBaseURL()}${path}`)
             .set('Accept', 'application/json')
-            .set('accept-language', options.lang)
             .set('Authorization', `Bearer ${options.token}`);
         if (options.query) {
             req.query(options.query);

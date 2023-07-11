@@ -52,6 +52,7 @@ describe('User', (): void => {
             expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
             expect(response.body.result).toBeTruthy();
         });
+
         it('Should Fail Token jwt malformed', async (): Promise<void> => {
             const response = await userTestController.getProfile({});
 
@@ -92,40 +93,12 @@ describe('User', (): void => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail lang=fr First Name must be string', async (): Promise<void> => {
-            const updateBody = {
-                firstName: 123,
-                lastName: 'testLastName',
-            };
-            const response = await userTestController.updateProfile(token, updateBody, 'fr');
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.result).toBeTruthy();
-        });
-
         it('Should Fail First Name must be at least 2 characters long and less than 25 characters', async () => {
             const updateBody: UserUpdateDto = {
                 firstName: 't',
                 lastName: 'testLastName',
             };
             const response = await userTestController.updateProfile(token, updateBody);
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.result).toBeTruthy();
-        });
-
-        it('Should Fail lang=de First Name must be at least 2 characters long and less than 25 characters', async () => {
-            const updateBody: UserUpdateDto = {
-                firstName: 't',
-                lastName: 'testLastName',
-            };
-            const response = await userTestController.updateProfile(token, updateBody, 'de');
 
             expect(response.body.success).toEqual(false);
             expect(response.status).toEqual(400);
@@ -148,40 +121,12 @@ describe('User', (): void => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail lanf=fr Last Name must be string', async (): Promise<void> => {
-            const updateBody = {
-                firstName: 'testFirstName',
-                lastName: 123,
-            };
-            const response = await userTestController.updateProfile(token, updateBody, 'fr');
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.result).toBeTruthy();
-        });
-
         it('Should Fail last Name must be at least 2 charactes long and less than 25 characters', async () => {
             const updateBody: UserUpdateDto = {
                 firstName: 'testFirstName',
                 lastName: 't',
             };
             const response = await userTestController.updateProfile(token, updateBody);
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.result).toBeTruthy();
-        });
-
-        it('Should Fail lang=de last Name must be at least 2 charactes long and less than 25 characters', async () => {
-            const updateBody: UserUpdateDto = {
-                firstName: 'testFirstName',
-                lastName: 't',
-            };
-            const response = await userTestController.updateProfile(token, updateBody, 'de');
 
             expect(response.body.success).toEqual(false);
             expect(response.status).toEqual(400);

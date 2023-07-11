@@ -62,19 +62,6 @@ describe('Login', (): void => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=fr Login Please enter a valid email (email is empty)', async (): Promise<void> => {
-            const data = {
-                password: user1.password,
-            };
-            const response = await authTestController.login(data, 'fr');
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.errors).toBeTruthy();
-        });
-
         it('Should Fail Login Please enter a valid email (email not Validate)', async (): Promise<void> => {
             const data = {
                 email: 'notvalidemail',
@@ -89,38 +76,11 @@ describe('Login', (): void => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=de Login Please enter a valid email (email not Validate)', async (): Promise<void> => {
-            const data = {
-                email: 'notvalidemail',
-                password: user1.password,
-            };
-            const response = await authTestController.login(data, 'de');
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.errors).toBeTruthy();
-        });
-
         it('Should Fail Login Password must be at least 6 characters long (password is empty)', async (): Promise<void> => {
             const data = {
                 email: user1.email,
             };
             const response = await authTestController.login(data);
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.errors).toBeTruthy();
-        });
-
-        it('Should Fail lang=fr Login Password must be at least 6 characters long (password is empty)', async (): Promise<void> => {
-            const data = {
-                email: user1.email,
-            };
-            const response = await authTestController.login(data, 'fr');
 
             expect(response.body.success).toEqual(false);
             expect(response.status).toEqual(400);
@@ -143,20 +103,6 @@ describe('Login', (): void => {
             expect(response.body.errors).toBeTruthy();
         });
 
-        it('Should Fail lang=de Login Password must be at least 6 characters long (short password)', async (): Promise<void> => {
-            const data = {
-                email: user1.email,
-                password: 'short',
-            };
-            const response = await authTestController.login(data, 'de');
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(400);
-            expect(response.body.status).toEqual(400);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.errors).toBeTruthy();
-        });
-
         it('Should Fail Login username or password is wrong! (password is wrong)', async (): Promise<void> => {
             const data = {
                 email: user1.email,
@@ -171,40 +117,12 @@ describe('Login', (): void => {
             expect(response.body.result).toBeTruthy();
         });
 
-        it('Should Fail lang=de Login username or password is wrong! (password is wrong)', async (): Promise<void> => {
-            const data = {
-                email: user1.email,
-                password: 'wrongPassword',
-            };
-            const response = await authTestController.login(data, 'de');
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(401);
-            expect(response.body.status).toEqual(401);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.result).toBeTruthy();
-        });
-
         it('Should Fail Login username or password is wrong! (email is wrong)', async (): Promise<void> => {
             const data = {
                 email: 'Wrongemail@email.com',
                 password: user1.password,
             };
             const response = await authTestController.login(data);
-
-            expect(response.body.success).toEqual(false);
-            expect(response.status).toEqual(401);
-            expect(response.body.status).toEqual(401);
-            expect(response.body.label).toEqual(getReasonPhrase(response.body.status));
-            expect(response.body.result).toBeTruthy();
-        });
-
-        it('Should Fail lang=fr Login username or password is wrong! (email is wrong)', async (): Promise<void> => {
-            const data = {
-                email: 'Wrongemail@email.com',
-                password: user1.password,
-            };
-            const response = await authTestController.login(data, 'fr');
 
             expect(response.body.success).toEqual(false);
             expect(response.status).toEqual(401);

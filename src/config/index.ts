@@ -1,6 +1,5 @@
 import { server } from './server.config';
 import { database } from './database.config';
-import { language } from './language.config';
 import { rateLimit } from './rateLimit.config';
 import { cors } from './cors.config';
 import { swagger } from './swagger.config';
@@ -15,7 +14,6 @@ const config: any = {
         refresh_key: process.env.JWT_REFRESH_SECRET,
         email_key: process.env.JWT_EMAIL_TOKEN,
     },
-    language,
     rateLimit,
     cors,
     swagger,

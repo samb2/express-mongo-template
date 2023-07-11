@@ -1,5 +1,4 @@
 import Validator from '../Validator';
-import t from '../../../utils/translate';
 import { body } from 'express-validator';
 
 class AuthValidator extends Validator {
@@ -9,12 +8,12 @@ class AuthValidator extends Validator {
                 .trim()
                 .escape()
                 .isEmail()
-                .withMessage(() => t('Please enter a valid email', __filename)),
+                .withMessage('Please enter a valid email'),
             body('password')
                 .trim()
                 .escape()
                 .isLength({ min: 6 })
-                .withMessage(() => t('Password must be at least 6 characters long', __filename)),
+                .withMessage('Password must be at least 6 characters long'),
             this.handleValidationResult,
         ];
     }
@@ -25,12 +24,12 @@ class AuthValidator extends Validator {
                 .trim()
                 .escape()
                 .isEmail()
-                .withMessage(() => t('Please enter a valid email', __filename)),
+                .withMessage('Please enter a valid email'),
             body('password')
                 .trim()
                 .escape()
                 .isLength({ min: 6 })
-                .withMessage(() => t('Password must be at least 6 characters long', __filename)),
+                .withMessage('Password must be at least 6 characters long'),
             this.handleValidationResult,
         ];
     }
@@ -41,7 +40,7 @@ class AuthValidator extends Validator {
                 .trim()
                 .escape()
                 .isEmail()
-                .withMessage(() => t('Please enter a valid email', __filename)),
+                .withMessage('Please enter a valid email'),
             this.handleValidationResult,
         ];
     }
@@ -50,12 +49,12 @@ class AuthValidator extends Validator {
         return [
             body('token')
                 .isJWT()
-                .withMessage(() => t('token required', __filename)),
+                .withMessage('token required'),
             body('password')
                 .trim()
                 .escape()
                 .isLength({ min: 6 })
-                .withMessage(() => t('Password must be at least 6 characters long', __filename)),
+                .withMessage('Password must be at least 6 characters long'),
             this.handleValidationResult,
         ];
     }

@@ -24,10 +24,6 @@ Integration testing :
 - Jest
 - supertest
 
-Languages :
-
-- i18n
-
 Documentation :
 
 - swagger
@@ -131,11 +127,6 @@ Express server listening on http://localhost:3000/, in Production mode.
 │   ├── .env.development.example
 │   ├── .env.production.example
 │   └── .env.test.example
-├── resource
-│   └── locales
-│       ├── de.json
-│       ├── en.json
-│       └── fr.json
 ├── src
 │   ├── __tests__
 │   │   |
@@ -163,7 +154,6 @@ Express server listening on http://localhost:3000/, in Production mode.
 |   |   |   └── user.dto.ts
 │   │   ├── middlewares
 |   |   |   ├── Auth.middleware.ts
-|   |   |   ├── Language.middleware.ts
 |   |   |   └── Middleware.ts
 │   │   ├── routes
 |   |   |   ├── v1
@@ -185,7 +175,6 @@ Express server listening on http://localhost:3000/, in Production mode.
 │   │   ├── database.config.ts
 │   │   ├── email.config.ts
 │   │   ├── index.ts
-│   │   ├── language.config.ts
 │   │   ├── logger.config.ts
 │   │   ├── rateLimit.config.ts
 │   │   ├── redis.config.ts
@@ -221,8 +210,7 @@ Express server listening on http://localhost:3000/, in Production mode.
 │   │   ├── passport
 │   │   │   └── passport-jwt.ts
 │   │   ├── email.ts
-│   │   ├── password.ts
-│   │   └── translate.ts
+│   │   └── password.ts
 │   ├── app.ts
 |   └── server.ts
 ├── .dockerignore
