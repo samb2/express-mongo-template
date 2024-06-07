@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Express } from 'express';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
@@ -18,7 +18,7 @@ import { morganMiddleware } from './config/logger';
 import rateLimit from 'express-rate-limit';
 
 export default class App {
-    public app;
+    public app: Express;
     private static instance: App;
 
     constructor() {

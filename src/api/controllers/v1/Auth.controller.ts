@@ -10,18 +10,9 @@ import {
     RegisterResDto,
     ResetPasswordDto,
 } from '../../dtos/auth.dto';
+import { AuthControllerInterface } from './interfaces/auth-controller.interface';
 
-interface IAuthController {
-    register(req: Request, res: Response, next: NextFunction): Promise<any>;
-
-    login(req: Request, res: Response, next: NextFunction): Promise<any>;
-
-    forgotPassword(req: Request, res: Response, next: NextFunction): Promise<any>;
-
-    resetPassword(req: Request, res: Response, next: NextFunction): Promise<any>;
-}
-
-class AuthController extends Controller implements IAuthController {
+class AuthController extends Controller implements AuthControllerInterface {
     /**
      * POST /api/v1/auth/register
      * @tags auth
@@ -66,7 +57,7 @@ class AuthController extends Controller implements IAuthController {
      *   "result": "This Email Registered Before"
      * }
      */
-    async register(req: Request, res: Response, next: NextFunction): Promise<any> {
+    async register(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const registerDto: RegisterDto = req.body;
             const registerRes: RegisterResDto = await authService.registerProcess(registerDto);
@@ -121,7 +112,7 @@ class AuthController extends Controller implements IAuthController {
      *   "result": "username or password is wrong!"
      * }
      */
-    async login(req: Request, res: Response, next: NextFunction): Promise<any> {
+    async login(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const loginDto: LoginDto = req.body;
             const loginRes: LoginResDto = await authService.loginProcess(loginDto);
@@ -164,7 +155,7 @@ class AuthController extends Controller implements IAuthController {
      *   ]
      * }
      */
-    async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<any> {
+    async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const forgotPasswordDto: ForgotPasswordDto = req.body;
             const result: string = await authService.forgotPasswordProcess(forgotPasswordDto.email);
@@ -224,7 +215,7 @@ class AuthController extends Controller implements IAuthController {
      *   "result": "invalid signature"
      * }
      */
-    async resetPassword(req: Request, res: Response, next: NextFunction): Promise<any> {
+    async resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const resetPasswordDto: ResetPasswordDto = req.body;
             const result: string = await authService.resetPasswordProcess(resetPasswordDto);

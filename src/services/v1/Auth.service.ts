@@ -2,13 +2,7 @@ import Service from '../Service';
 import jwt from 'jsonwebtoken';
 import User, { IUserDocument } from '../../database/model/user';
 import { bcryptPassword, comparePassword } from '../../utils/password';
-import {
-    ResetPasswordDto,
-    LoginDto,
-    RegisterDto,
-    RegisterResDto,
-    LoginResDto,
-} from '../../api/dtos/auth.dto';
+import { ResetPasswordDto, LoginDto, RegisterDto, RegisterResDto, LoginResDto } from '../../api/dtos/auth.dto';
 import ResetPassword, { IResetPasswordDocument } from '../../database/model/resetPassword';
 import Email from '../../utils/email';
 import { ConflictError, ForbiddenError, UnauthorizedError } from 'irolegroup/dist/errors';
@@ -31,7 +25,7 @@ class AuthService extends Service implements IAuthService {
 
         const userExist: boolean = await User.checkUserExistWithEmail(email);
         if (userExist) throw new ConflictError('This Email Registered Before');
-        const user: IUserDocument = await User.insert({ email, password: bcryptPassword(password) });
+        const user: IUserDocument = await User.insert({ email, password: await bcryptPassword(password) });
         const token: string = this.generateToken(user.id, 'TOKEN');
         return { token };
     }
@@ -40,7 +34,7 @@ class AuthService extends Service implements IAuthService {
         const { email, password } = body;
         const user: IUserDocument = await User.findOne({ email });
         if (!user) throw new UnauthorizedError('username or password is wrong!');
-        const checkPassword: boolean = comparePassword(password, user.password);
+        const checkPassword: boolean = await comparePassword(password, user.password);
         if (!checkPassword) throw new UnauthorizedError('username or password is wrong!');
         const token: string = this.generateToken(user.id, 'TOKEN');
         const refreshToken: string = this.generateToken(user.id, 'REFRESH_TOKEN');
@@ -80,7 +74,7 @@ class AuthService extends Service implements IAuthService {
             throw new ForbiddenError('This Token Expired');
         }
         // Update User Password & set reset Password as used
-        await User.findOneAndUpdate({ email: resetPassword.email }, { password: bcryptPassword(password) });
+        await User.findOneAndUpdate({ email: resetPassword.email }, { password: await bcryptPassword(password) });
         await ResetPassword.tokenUsed(token);
 
         return 'Your password Changed Successfully';

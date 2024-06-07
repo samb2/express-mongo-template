@@ -4,11 +4,7 @@ import { body } from 'express-validator';
 class AuthValidator extends Validator {
     register(): any[] {
         return [
-            body('email')
-                .trim()
-                .escape()
-                .isEmail()
-                .withMessage('Please enter a valid email'),
+            body('email').trim().escape().isEmail().withMessage('Please enter a valid email'),
             body('password')
                 .trim()
                 .escape()
@@ -20,11 +16,7 @@ class AuthValidator extends Validator {
 
     login(): any[] {
         return [
-            body('email')
-                .trim()
-                .escape()
-                .isEmail()
-                .withMessage('Please enter a valid email'),
+            body('email').trim().escape().isEmail().withMessage('Please enter a valid email'),
             body('password')
                 .trim()
                 .escape()
@@ -36,20 +28,14 @@ class AuthValidator extends Validator {
 
     forgotPassword(): any[] {
         return [
-            body('email')
-                .trim()
-                .escape()
-                .isEmail()
-                .withMessage('Please enter a valid email'),
+            body('email').trim().escape().isEmail().withMessage('Please enter a valid email'),
             this.handleValidationResult,
         ];
     }
 
     resetPassword(): any[] {
         return [
-            body('token')
-                .isJWT()
-                .withMessage('token required'),
+            body('token').isJWT().withMessage('token required'),
             body('password')
                 .trim()
                 .escape()

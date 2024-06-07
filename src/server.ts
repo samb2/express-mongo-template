@@ -1,7 +1,5 @@
 import * as http from 'http';
 
-import debug0 from 'debug';
-
 import mongoose from 'mongoose';
 import { logger } from './config/logger';
 import { applySpeedGooseCacheLayer } from 'speedgoose';
@@ -11,7 +9,6 @@ export class Server {
     port: number = Config.server.port;
     server: any;
     mongoDbName: string = Config.database.url;
-    debug = debug0('iRole-Express-Api:server');
 
     constructor() {
         this.setMongoConnection();

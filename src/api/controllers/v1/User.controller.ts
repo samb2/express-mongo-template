@@ -3,14 +3,9 @@ import { NextFunction, Request, Response } from 'express';
 import { UserProfileResDto, UserUpdateDto, UserUpdateResDto } from '../../dtos/user.dto';
 import userService from '../../../services/v1/User.service';
 import { Types } from 'mongoose';
+import { UserControllerInterface } from './interfaces/user-controller.interface';
 
-interface IUserController {
-    getProfile(req: Request, res: Response, next: NextFunction): Promise<any>;
-
-    updateProfile(req: Request, res: Response, next: NextFunction): Promise<any>;
-}
-
-class UserController extends Controller implements IUserController {
+class UserController extends Controller implements UserControllerInterface {
     /**
      * GET /api/v1/user
      * @tags users
@@ -27,11 +22,11 @@ class UserController extends Controller implements IUserController {
      *   }
      * }
      */
-    async getProfile(req: Request, res: Response, next: NextFunction): Promise<any> {
+    async getProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const userId: Types.ObjectId | undefined = req.user?.id;
             const userProfileResDto: UserProfileResDto = await userService.getProfile(userId);
-            return this.success(userProfileResDto, res);
+            this.success(userProfileResDto, res);
         } catch (e: any) {
             next(e);
         }
@@ -85,7 +80,7 @@ class UserController extends Controller implements IUserController {
      *   "result": "No auth token"
      * }
      */
-    async updateProfile(req: Request, res: Response, next: NextFunction): Promise<any> {
+    async updateProfile(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const userId: Types.ObjectId | undefined = req.user?.id;
             const userUpdateDto: UserUpdateDto = req.body;

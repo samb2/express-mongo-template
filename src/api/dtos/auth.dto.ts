@@ -1,5 +1,5 @@
 /**
- * UserDto
+ * RegisterDto
  * @typedef {object} RegisterDto
  * @property {string} email.required - The title
  * @property {string} password.required - The title

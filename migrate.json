@@ -1,5 +1,5 @@
 {
-  "uri": "mongodb://localhost:27017/iRole-Express-mongodb-dev",
+  "uri": "mongodb://localhost:27017/express-dev",
   "collection": "migrations",
   "migrationsPath": "./src/database/migrations",
   "templatePath": "./src/database/migrations/template.ts",

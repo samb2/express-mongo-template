@@ -1,15 +1,5 @@
-name: express-template-core
+version: "3"
 services:
-  api:
-    build: .
-    restart: always
-    ports:
-      - "3000:3000"
-    volumes:
-      - myapi:/home/node/api
-    networks:
-      - backend_network
-
   mongo:
     image: mongo:7.0
     container_name: mongo
@@ -34,7 +24,6 @@ services:
       - backend_network
 
 volumes:
-  myapi:
   mongo_data:
   redis:
 
